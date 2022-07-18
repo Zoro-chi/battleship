@@ -1,25 +1,27 @@
 class Ship {
-  constructor(len, pos) {
+  constructor(len) {
     this.length = len;
     // WHERE SHIP HAS BEEN HIT
     this.hits = [];
-    this.position = pos;
+    this.position = [];
     this.sunk = false;
   }
   hit(pos) {
-    if (this.position.includes(pos)) {
-      const index = this.position.indexOf(pos);
-      this.position.splice(index, 1, "X");
+    let position = JSON.stringify(this.getPosition());
+    let coord = JSON.stringify(pos);
+    if (position.includes(coord)) {
+      // const index = this.position.indexOf(pos);
+      // console.log(index);
+      // this.position.splice(index, 1, "X");
       this.hits.push(pos);
     }
   }
+
   isSunk() {
     if (this.hits.length == this.length) {
       this.sunk = true;
-      return this.sunk;
-    } else {
-      return this.sunk;
     }
+    return this.sunk;
   }
   getLength() {
     return this.length;
