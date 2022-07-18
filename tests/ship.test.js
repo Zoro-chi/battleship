@@ -35,7 +35,7 @@ describe("Ship tests", () => {
     shipB.hit([2, 0]);
     shipB.hit([3, 0]);
     shipB.hit([4, 0]);
-    console.log(shipB.getPosition());
+    console.log(shipB.hits);
     console.log(shipB.isSunk());
     expect(shipB.isSunk()).toBe(true);
   });

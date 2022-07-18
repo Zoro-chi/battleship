@@ -6,13 +6,11 @@ class Ship {
     this.position = [];
     this.sunk = false;
   }
+
   hit(pos) {
     let position = JSON.stringify(this.getPosition());
     let coord = JSON.stringify(pos);
     if (position.includes(coord)) {
-      // const index = this.position.indexOf(pos);
-      // console.log(index);
-      // this.position.splice(index, 1, "X");
       this.hits.push(pos);
     }
   }
@@ -23,9 +21,11 @@ class Ship {
     }
     return this.sunk;
   }
+
   getLength() {
     return this.length;
   }
+
   getPosition() {
     return this.position;
   }
