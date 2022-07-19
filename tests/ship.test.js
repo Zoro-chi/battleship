@@ -1,12 +1,12 @@
 import Ship from "../src/components/ship.js";
 
 describe("Ship tests", () => {
-  const shipA = new Ship(2);
+  const shipA = new Ship(2, "shipa");
   shipA.position = [
     [0, 0],
     [0, 1],
   ];
-  const shipB = new Ship(4);
+  const shipB = new Ship(4, "shipb");
   shipB.position = [
     [1, 0],
     [2, 0],
@@ -35,8 +35,6 @@ describe("Ship tests", () => {
     shipB.hit([2, 0]);
     shipB.hit([3, 0]);
     shipB.hit([4, 0]);
-    console.log(shipB.hits);
-    console.log(shipB.isSunk());
     expect(shipB.isSunk()).toBe(true);
   });
 });

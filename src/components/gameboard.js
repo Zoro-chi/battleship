@@ -4,6 +4,7 @@ class Gameboard {
   constructor() {
     this.missedShots = [];
     this.gameboardArr = this.createGameboard();
+    this.aliveShips = [];
   }
   createGameboard() {
     let array = [];
@@ -20,10 +21,7 @@ class Gameboard {
   getGameboard() {
     return this.gameboardArr;
   }
-  validPlacement(x, y, length, direction) {
-    if (this.gameboardArr[x][y]) {
-      return false;
-    }
+  validPlacement(y, x, length, direction) {
     if (direction == "v") {
       if (x > 10 || x < 0 || y > 10 || y < 0 || y + length > 10) {
         return false;
@@ -49,34 +47,54 @@ class Gameboard {
       }
     }
   }
-  placeShip(x, y, ship, direction) {
+  placeShip(y, x, ship, direction) {
     if (direction == "v") {
-      if (this.validPlacement(x, y, ship.getLength(), direction)) {
+      if (this.validPlacement(y, x, ship.getLength(), direction)) {
         for (let i = 0; i < ship.getLength(); i++) {
-          this.gameboardArr[y + i][x].shipName = ship;
+          this.gameboardArr[y + i][x].shipName = ship.getName();
           this.gameboardArr[y + i][x].shipIndex = i;
+          ship.position.push([y + i, x]);
         }
+        this.aliveShips.push(ship);
       }
     }
     if (direction == "h") {
-      if (this.validPlacement(x, y, ship.getLength(), direction)) {
+      if (this.validPlacement(y, x, ship.getLength(), direction)) {
         for (let i = 0; i < ship.getLength(); i++) {
-          this.gameboardArr[y][x + i].shipName = ship;
+          this.gameboardArr[y][x + i].shipName = ship.getName();
           this.gameboardArr[y][x + i].shipIndex = i;
+          ship.position.push([y, x + i]);
         }
+        this.aliveShips.push(ship);
       }
     }
   }
-  receiveAttack(x, y) {
-    if (this.gameboardArr[y][x].shipName == undefined) {
-      this.missedShots.push({ x: x, y: y });
+  receiveAttack(y, x, ship) {
+    if (this.gameboardArr[y][x].shipName == ship.getName()) {
+      ship.hit([y, x]);
     } else {
-      this.gameboardArr[y][x].shipName.hit(this.gameboardArr[y][x].shipIndex);
+      this.missedShots.push([y, x]);
     }
+    this.shipsAlive();
   }
-  getMissedAhots() {
+
+  getMissedShots() {
     return this.missedShots;
   }
+
+  shipsAlive = () => {
+    // if (ship.sunk) {
+    //   let index = this.aliveShips.indexOf(ship.getName());
+    //   this.aliveShips.splice(index, 1);
+    // }
+
+    this.aliveShips.forEach((ship) => {
+      if (ship.sunk) {
+        const index = this.aliveShips.indexOf(ship);
+        this.aliveShips.splice(index, 1);
+      }
+    });
+  };
 }
 
 export default Gameboard;
