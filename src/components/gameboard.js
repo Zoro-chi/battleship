@@ -1,5 +1,3 @@
-import Ship from "./ship.js";
-
 class Gameboard {
   constructor() {
     this.missedShots = [];
@@ -56,6 +54,8 @@ class Gameboard {
           ship.position.push([y + i, x]);
         }
         this.aliveShips.push(ship);
+      } else {
+        return;
       }
     }
     if (direction == "h") {
@@ -66,14 +66,21 @@ class Gameboard {
           ship.position.push([y, x + i]);
         }
         this.aliveShips.push(ship);
+      } else {
+        return;
       }
     }
   }
-  receiveAttack(y, x, ship) {
-    if (this.gameboardArr[y][x].shipName == ship.getName()) {
-      ship.hit([y, x]);
-    } else {
+
+  receiveAttack(y, x) {
+    let name = this.gameboardArr[y][x].shipName;
+    if (name == undefined) {
       this.missedShots.push([y, x]);
+    } else {
+      const target = this.aliveShips.filter((ship) => {
+        return ship.name === name;
+      })[0];
+      target.hit([y, x]);
     }
     this.shipsAlive();
   }
@@ -83,11 +90,6 @@ class Gameboard {
   }
 
   shipsAlive = () => {
-    // if (ship.sunk) {
-    //   let index = this.aliveShips.indexOf(ship.getName());
-    //   this.aliveShips.splice(index, 1);
-    // }
-
     this.aliveShips.forEach((ship) => {
       if (ship.sunk) {
         const index = this.aliveShips.indexOf(ship);

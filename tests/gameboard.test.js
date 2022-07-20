@@ -4,25 +4,31 @@ import Ship from "../src/components/ship";
 describe("Gameboard tests", () => {
   const gameboard = new Gameboard();
   const board = gameboard.getGameboard();
+
   test("Gameboard creation", () => {
     expect(board[2][3]).toEqual({ shipName: undefined });
   });
+
   test("Placing ship vertically", () => {
     const proto = new Ship(3, "proto");
     gameboard.placeShip(0, 0, proto, "v");
+
     expect(gameboard.getGameboard()[0][0]).toEqual({
       shipName: proto.getName(),
       shipIndex: 0,
     });
   });
+
   test("Placing ship horizontally", () => {
     const beta = new Ship(2, "beta");
     gameboard.placeShip(5, 6, beta, "h");
+
     expect(gameboard.getGameboard()[5][7]).toEqual({
       shipName: beta.getName(),
       shipIndex: 1,
     });
   });
+
   test("Receiving an attack", () => {
     const alpha = new Ship(3, "alpha");
     gameboard.placeShip(4, 4, alpha, "v");
@@ -34,6 +40,7 @@ describe("Gameboard tests", () => {
       [5, 4],
     ]);
   });
+
   test("Missed shots", () => {
     const charlie = new Ship(4, "charlie");
     gameboard.placeShip(7, 0, charlie, "h");
@@ -47,6 +54,7 @@ describe("Gameboard tests", () => {
       [3, 5],
     ]);
   });
+
   test("Alive ships", () => {
     const gameBoard1 = new Gameboard();
     const delta = new Ship(1, "delta");
@@ -56,10 +64,6 @@ describe("Gameboard tests", () => {
     gameBoard1.placeShip(5, 6, echo, "h");
     gameBoard1.placeShip(7, 6, foxtrot, "h");
     gameBoard1.receiveAttack(5, 6, echo);
-
-    gameBoard1.aliveShips.forEach((ship) => {
-      console.log(ship.name);
-    });
 
     expect(gameBoard1.aliveShips).toEqual([delta, foxtrot]);
   });
