@@ -1,7 +1,20 @@
+import Ship from "./ship";
+
+const allShips = {
+  carrier: new Ship(5, "carrier"),
+  battleship: new Ship(4, "battleship"),
+  destroyer: new Ship(3, "destroyer"),
+  submarine: new Ship(3, "submarine"),
+  patrolboat: new Ship(2, "patrolboat"),
+};
+
+const { carrier, battleship, destroyer, submarine, patrolboat } = allShips;
+
 class Gameboard {
   constructor() {
     this.missedShots = [];
     this.gameboardArr = this.createGameboard();
+    this.allShips = [carrier, battleship, destroyer, submarine, patrolboat];
     this.aliveShips = [];
   }
   createGameboard() {
@@ -55,7 +68,7 @@ class Gameboard {
         }
         this.aliveShips.push(ship);
       } else {
-        return;
+        return false;
       }
     }
     if (direction == "h") {
@@ -67,7 +80,7 @@ class Gameboard {
         }
         this.aliveShips.push(ship);
       } else {
-        return;
+        return false;
       }
     }
   }
@@ -96,6 +109,28 @@ class Gameboard {
         this.aliveShips.splice(index, 1);
       }
     });
+  };
+
+  generateVars = () => {
+    let y = Math.floor(Math.random() * 10);
+    let x = Math.floor(Math.random() * 10);
+    let direction;
+    if (Math.floor(Math.random() * 2) === 0) {
+      direction = "v";
+    } else {
+      direction = "h";
+    }
+    return { y, x, direction };
+  };
+
+  randomPlaceShip = (ship) => {
+    const { y, x, direction } = this.generateVars();
+    let retry = true;
+    while (retry === true) {
+      if (this.placeShip(y, x, ship, direction) != false) {
+        retry = false;
+      }
+    }
   };
 }
 

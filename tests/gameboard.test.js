@@ -67,4 +67,12 @@ describe("Gameboard tests", () => {
 
     expect(gameBoard1.aliveShips).toEqual([delta, foxtrot]);
   });
+
+  test("Random Ship placement", () => {
+    const gameboard2 = new Gameboard();
+    const golf = new Ship(3, "golf");
+    const place = gameboard2.randomPlaceShip(golf);
+
+    expect(gameboard2.aliveShips.length).toBe(1);
+  });
 });
