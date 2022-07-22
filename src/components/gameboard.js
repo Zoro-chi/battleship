@@ -1,4 +1,4 @@
-import Ship from "./ship";
+import Ship from "./ship.js";
 
 const allShips = {
   carrier: new Ship(5, "carrier"),
@@ -16,6 +16,7 @@ class Gameboard {
     this.gameboardArr = this.createGameboard();
     this.allShips = [carrier, battleship, destroyer, submarine, patrolboat];
     this.aliveShips = [];
+    this.sunkShips = [];
   }
   createGameboard() {
     let array = [];
@@ -59,6 +60,7 @@ class Gameboard {
     }
   }
   placeShip(y, x, ship, direction) {
+    let ans;
     if (direction == "v") {
       if (this.validPlacement(y, x, ship.getLength(), direction)) {
         for (let i = 0; i < ship.getLength(); i++) {
@@ -67,11 +69,14 @@ class Gameboard {
           ship.position.push([y + i, x]);
         }
         this.aliveShips.push(ship);
+        ans = true;
       } else {
-        return false;
+        ans = false;
       }
+      return ans;
     }
     if (direction == "h") {
+      let ans;
       if (this.validPlacement(y, x, ship.getLength(), direction)) {
         for (let i = 0; i < ship.getLength(); i++) {
           this.gameboardArr[y][x + i].shipName = ship.getName();
@@ -79,11 +84,35 @@ class Gameboard {
           ship.position.push([y, x + i]);
         }
         this.aliveShips.push(ship);
+        ans = true;
       } else {
-        return false;
+        ans = false;
       }
+      return ans;
     }
   }
+
+  generateVars = () => {
+    let y = Math.floor(Math.random() * 10);
+    let x = Math.floor(Math.random() * 10);
+    let direction;
+    if (Math.floor(Math.random() * 2) === 0) {
+      direction = "v";
+    } else {
+      direction = "h";
+    }
+    return { y, x, direction };
+  };
+
+  randomPlaceShip = (ship) => {
+    const { y, x, direction } = this.generateVars();
+    let retry = true;
+    if (this.placeShip(y, x, ship, direction) === false) {
+      this.randomPlaceShip(ship);
+    } else {
+      return;
+    }
+  };
 
   receiveAttack(y, x) {
     let name = this.gameboardArr[y][x].shipName;
@@ -107,30 +136,9 @@ class Gameboard {
       if (ship.sunk) {
         const index = this.aliveShips.indexOf(ship);
         this.aliveShips.splice(index, 1);
+        this.sunkShips.push(ship);
       }
     });
-  };
-
-  generateVars = () => {
-    let y = Math.floor(Math.random() * 10);
-    let x = Math.floor(Math.random() * 10);
-    let direction;
-    if (Math.floor(Math.random() * 2) === 0) {
-      direction = "v";
-    } else {
-      direction = "h";
-    }
-    return { y, x, direction };
-  };
-
-  randomPlaceShip = (ship) => {
-    const { y, x, direction } = this.generateVars();
-    let retry = true;
-    while (retry === true) {
-      if (this.placeShip(y, x, ship, direction) != false) {
-        retry = false;
-      }
-    }
   };
 }
 

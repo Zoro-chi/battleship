@@ -12,36 +12,14 @@ const initGame = () => {
   const p2Board = p2.board;
 
   // INIT SHIPS
-  const p1Ships = {
-    carrier: new Ship(5, "carrier"),
-    battleship: new Ship(4, "battleship"),
-    destroyer: new Ship(3, "destroyer"),
-    submarine: new Ship(3, "submarine"),
-    patrolboat: new Ship(2, "patrolboat"),
-  };
-  const p2Ships = {
-    carrier: new Ship(5, "carrier"),
-    battleship: new Ship(4, "battleship"),
-    destroyer: new Ship(3, "destroyer"),
-    submarine: new Ship(3, "submarine"),
-    patrolboat: new Ship(2, "patrolboat"),
-  };
+  p1Board.allShips.forEach((ship) => p1Board.randomPlaceShip(ship));
+  p2Board.allShips.forEach((ship) => p2Board.randomPlaceShip(ship));
 
-  //   PLACE SHIPS ON RESPECTIVE GAMEBOARD
-  p1Board.placeShip(0, 0, p1Ships.carrier, "v");
-  p1Board.placeShip(3, 3, p1Ships.battleship, "h");
-  p1Board.placeShip(4, 7, p1Ships.destroyer, "h");
-  p1Board.placeShip(6, 5, p1Ships.submarine, "v");
-  p1Board.placeShip(0, 5, p1Ships.patrolboat, "h");
+  // p1Board.aliveShips.forEach((ship) => {
+  //   return console.log(ship.position);
+  // });
+  // console.log(p2Board.aliveShips);
 
-  p2Board.placeShip(0, 0, p1Ships.carrier, "v");
-  p2Board.placeShip(3, 3, p1Ships.battleship, "h");
-  p2Board.placeShip(4, 7, p1Ships.destroyer, "h");
-  p2Board.placeShip(6, 5, p1Ships.submarine, "v");
-  p2Board.placeShip(0, 5, p1Ships.patrolboat, "h");
-
-  //   console.log(p1Board.aliveShips[0].position);
-  //   console.log(p2Board.aliveShips[0].position[0]);
   return {
     p1Board,
     p2Board,

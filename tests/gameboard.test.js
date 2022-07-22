@@ -64,6 +64,7 @@ describe("Gameboard tests", () => {
     gameBoard1.placeShip(5, 6, echo, "h");
     gameBoard1.placeShip(7, 6, foxtrot, "h");
     gameBoard1.receiveAttack(5, 6, echo);
+    console.log(gameBoard1.aliveShips);
 
     expect(gameBoard1.aliveShips).toEqual([delta, foxtrot]);
   });
@@ -71,8 +72,23 @@ describe("Gameboard tests", () => {
   test("Random Ship placement", () => {
     const gameboard2 = new Gameboard();
     const golf = new Ship(3, "golf");
-    const place = gameboard2.randomPlaceShip(golf);
+    const hotel = new Ship(4, "hotel");
+    const india = new Ship(3, "india");
+    const john = new Ship(2, "john");
+    gameboard2.randomPlaceShip(golf);
+    gameboard2.randomPlaceShip(hotel);
+    gameboard2.randomPlaceShip(india);
+    gameboard2.randomPlaceShip(john);
 
-    expect(gameboard2.aliveShips.length).toBe(1);
+    expect(gameboard2.aliveShips.length).toBe(4);
+  });
+
+  test("All ships ", () => {
+    const gameboard3 = new Gameboard();
+    gameboard3.allShips.forEach((ship) => {
+      gameboard3.randomPlaceShip(ship);
+    });
+
+    expect(gameboard3.aliveShips.length).toBe(5);
   });
 });

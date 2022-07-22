@@ -4,12 +4,14 @@ const domOps = () => {
   const playerBoard = document.querySelector(".player-board");
   const enemyBoard = document.querySelector(".enemy-board");
 
-  const pBoard = initGame().p1Board.getGameboard();
-  const eBoard = initGame().p2Board.getGameboard();
+  const pBoard = initGame().p1Board;
+  const eBoard = initGame().p2Board;
 
-  pBoard.forEach((posY, i) => {
+  let cell;
+
+  pBoard.getGameboard().forEach((posY, i) => {
     posY.forEach((posX, j) => {
-      let cell = document.createElement("div");
+      cell = document.createElement("div");
       cell.classList.add("cell");
       cell.setAttribute("data-y", i);
       cell.setAttribute("data-x", j);
@@ -17,13 +19,30 @@ const domOps = () => {
     });
   });
 
-  eBoard.forEach((posY, i) => {
+  eBoard.getGameboard().forEach((posY, i) => {
     posY.forEach((posX, j) => {
-      let cell = document.createElement("div");
+      cell = document.createElement("div");
       cell.classList.add("cell");
       cell.setAttribute("data-y", i);
       cell.setAttribute("data-x", j);
       enemyBoard.appendChild(cell);
+    });
+  });
+
+  pBoard.aliveShips.forEach((ship) => {
+    ship.position.forEach((arr) => {
+      let { y, x } = arr;
+      let cell = document.querySelectorAll(".cell");
+      // cell.forEach((pos) => {
+      //   if (
+      //     pos.getAttribute("data-y") == y &&
+      //     pos.getAttribute("data-x") == x
+      //   ) {
+      //     pos.style.backgroundColor = "red";
+      //     console.log("yh");
+      //   }
+      // });
+      console.log(x, y);
     });
   });
 };
