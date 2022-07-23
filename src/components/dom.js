@@ -30,19 +30,22 @@ const domOps = () => {
   });
 
   pBoard.aliveShips.forEach((ship) => {
-    ship.position.forEach((arr) => {
-      let { y, x } = arr;
+    ship.position.forEach((coord) => {
       let cell = document.querySelectorAll(".cell");
-      // cell.forEach((pos) => {
-      //   if (
-      //     pos.getAttribute("data-y") == y &&
-      //     pos.getAttribute("data-x") == x
-      //   ) {
-      //     pos.style.backgroundColor = "red";
-      //     console.log("yh");
-      //   }
-      // });
-      console.log(x, y);
+      let y = coord[0];
+      let x = coord[1];
+      cell.forEach((pos) => {
+        // if (
+        // pos.getAttribute("data-y") == y &&
+        //   pos.getAttribute("data-x") == x
+        // ) {
+        //   pos.style.backgroundColor = "red";
+        // }
+        coord = JSON.stringify([y, x]);
+        if (coord == [pos.getAttribute("data-y"), pos.getAttribute("data-x")]) {
+          pos.style.backgroundColor = "red";
+        }
+      });
     });
   });
 };
