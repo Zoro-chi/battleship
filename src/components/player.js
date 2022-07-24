@@ -3,11 +3,8 @@ import Gameboard from "./gameboard.js";
 class Player {
   constructor(name) {
     this.name = name;
-    this.board = this.createGameboard();
+    this.board = new Gameboard(name);
     this.turn = false;
-  }
-  createGameboard() {
-    return new Gameboard();
   }
 
   getName() {

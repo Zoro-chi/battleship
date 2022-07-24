@@ -7,17 +7,28 @@ const allShips = {
   submarine: new Ship(3, "submarine"),
   patrolboat: new Ship(2, "patrolboat"),
 };
+const aiShips = {
+  carrier1: new Ship(5, "carrier"),
+  battleship1: new Ship(4, "battleship"),
+  destroyer1: new Ship(3, "destroyer"),
+  submarine1: new Ship(3, "submarine"),
+  patrolboat1: new Ship(2, "patrolboat"),
+};
 
 const { carrier, battleship, destroyer, submarine, patrolboat } = allShips;
+
+const { carrier1, battleship1, destroyer1, submarine1, patrolboat1 } = aiShips;
 
 class Gameboard {
   constructor() {
     this.missedShots = [];
     this.gameboardArr = this.createGameboard();
-    this.allShips = [carrier, battleship, destroyer, submarine, patrolboat];
+    this.allShips = [submarine, patrolboat];
+    this.aiShips = [submarine1, patrolboat1];
     this.aliveShips = [];
     this.sunkShips = [];
   }
+
   createGameboard() {
     let array = [];
     let arrayItem = [];
@@ -106,7 +117,6 @@ class Gameboard {
 
   randomPlaceShip = (ship) => {
     const { y, x, direction } = this.generateVars();
-    let retry = true;
     if (this.placeShip(y, x, ship, direction) === false) {
       this.randomPlaceShip(ship);
     } else {

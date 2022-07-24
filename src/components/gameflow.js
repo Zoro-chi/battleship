@@ -13,12 +13,11 @@ const initGame = () => {
 
   // INIT SHIPS
   p1Board.allShips.forEach((ship) => p1Board.randomPlaceShip(ship));
+
   p2Board.allShips.forEach((ship) => p2Board.randomPlaceShip(ship));
 
-  // p1Board.aliveShips.forEach((ship) => {
-  //   return console.log(ship.position);
-  // });
-  // console.log(p2Board.aliveShips);
+  p2Board.aliveShips.forEach((ship) => console.log(ship));
+  p1Board.aliveShips.forEach((ship) => console.log(ship));
 
   return {
     p1Board,
