@@ -64,7 +64,6 @@ describe("Gameboard tests", () => {
     gameBoard1.placeShip(5, 6, echo, "h");
     gameBoard1.placeShip(7, 6, foxtrot, "h");
     gameBoard1.receiveAttack(5, 6, echo);
-    console.log(gameBoard1.aliveShips);
 
     expect(gameBoard1.aliveShips).toEqual([delta, foxtrot]);
   });

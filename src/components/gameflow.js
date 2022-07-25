@@ -3,25 +3,17 @@ import Player from "./player.js";
 import Ship from "./ship.js";
 
 const initGame = () => {
-  // INIT PLAYERS
-  const p1 = new Player("Kilo");
-  const p2 = new Player("Lima");
-
-  //   INIT BOARDS
-  const p1Board = p1.board;
-  const p2Board = p2.board;
+  // INIT PLAYERS AND BOARDS
+  const player = new Player("Kilo");
+  const enemy = new Player("Lima");
 
   // INIT SHIPS
-  p1Board.allShips.forEach((ship) => p1Board.randomPlaceShip(ship));
-
-  p2Board.allShips.forEach((ship) => p2Board.randomPlaceShip(ship));
-
-  p2Board.aliveShips.forEach((ship) => console.log(ship));
-  p1Board.aliveShips.forEach((ship) => console.log(ship));
+  player.board.allShips.forEach((ship) => player.board.randomPlaceShip(ship));
+  enemy.board.aiShips.forEach((ship) => enemy.board.randomPlaceShip(ship));
 
   return {
-    p1Board,
-    p2Board,
+    player,
+    enemy,
   };
 };
 

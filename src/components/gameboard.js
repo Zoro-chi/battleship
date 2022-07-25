@@ -8,11 +8,11 @@ const allShips = {
   patrolboat: new Ship(2, "patrolboat"),
 };
 const aiShips = {
-  carrier1: new Ship(5, "carrier"),
-  battleship1: new Ship(4, "battleship"),
-  destroyer1: new Ship(3, "destroyer"),
-  submarine1: new Ship(3, "submarine"),
-  patrolboat1: new Ship(2, "patrolboat"),
+  carrier1: new Ship(5, "carrier1"),
+  battleship1: new Ship(4, "battleship1"),
+  destroyer1: new Ship(3, "destroyer1"),
+  submarine1: new Ship(3, "submarine1"),
+  patrolboat1: new Ship(2, "patrolboat1"),
 };
 
 const { carrier, battleship, destroyer, submarine, patrolboat } = allShips;
@@ -23,8 +23,8 @@ class Gameboard {
   constructor() {
     this.missedShots = [];
     this.gameboardArr = this.createGameboard();
-    this.allShips = [submarine, patrolboat];
-    this.aiShips = [submarine1, patrolboat1];
+    this.allShips = [carrier, battleship, destroyer, submarine, patrolboat];
+    this.aiShips = [carrier1, battleship1, destroyer1, submarine1, patrolboat1];
     this.aliveShips = [];
     this.sunkShips = [];
   }
