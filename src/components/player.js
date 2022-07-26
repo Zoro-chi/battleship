@@ -11,6 +11,10 @@ class Player {
     return this.name;
   }
 
+  setName(name) {
+    this.name = name;
+  }
+
   getTurn() {
     return this.turn;
   }

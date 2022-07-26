@@ -10,13 +10,13 @@ class Ship {
   }
 
   hit(pos) {
-    let position = JSON.stringify(this.getPosition());
-    let coord = JSON.stringify(pos);
-    if (position.includes(coord)) {
-      this.hits.push(pos);
-      this.health = this.health - 1;
-      this.isSunk();
-    }
+    // let position = JSON.stringify(this.getPosition());
+    // let coord = JSON.stringify(pos);
+    // if (position.includes(coord)) {
+    this.hits.push(pos);
+    this.health--;
+    this.isSunk();
+    // }
   }
 
   isSunk() {

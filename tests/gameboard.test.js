@@ -35,10 +35,7 @@ describe("Gameboard tests", () => {
     gameboard.receiveAttack(6, 4, alpha);
     gameboard.receiveAttack(5, 4, alpha);
 
-    expect(alpha.hits).toEqual([
-      [6, 4],
-      [5, 4],
-    ]);
+    expect(alpha.health).toEqual(1);
   });
 
   test("Missed shots", () => {

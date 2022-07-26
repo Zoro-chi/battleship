@@ -69,8 +69,8 @@ const domOps = () => {
       const y = cell.getAttribute("data-y");
       const x = cell.getAttribute("data-x");
       console.log(y, x);
-      player.attack(y, x, enemy);
-      console.log(enemy.board.missedShots);
+      enemy.attack(y, x, player);
+      console.log(player.board.missedShots);
     });
   });
 
@@ -79,8 +79,8 @@ const domOps = () => {
       const y = cell.getAttribute("data-y");
       const x = cell.getAttribute("data-x");
       console.log(y, x);
-      enemy.attack(y, x, player);
-      console.log(player.board.missedShots);
+      player.attack(y, x, enemy);
+      console.log(enemy.board.missedShots);
     });
   });
 };

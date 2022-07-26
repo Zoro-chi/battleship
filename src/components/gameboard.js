@@ -22,11 +22,13 @@ const { carrier1, battleship1, destroyer1, submarine1, patrolboat1 } = aiShips;
 class Gameboard {
   constructor() {
     this.missedShots = [];
+    this.hitShots = [];
     this.gameboardArr = this.createGameboard();
-    this.allShips = [carrier, battleship, destroyer, submarine, patrolboat];
-    this.aiShips = [carrier1, battleship1, destroyer1, submarine1, patrolboat1];
+    this.allShips = [destroyer, submarine, patrolboat];
+    this.aiShips = [destroyer1, submarine1, patrolboat1];
     this.aliveShips = [];
     this.sunkShips = [];
+    this.life = 0;
   }
 
   createGameboard() {
@@ -126,15 +128,27 @@ class Gameboard {
 
   receiveAttack(y, x) {
     let name = this.gameboardArr[y][x].shipName;
-    if (name == undefined) {
-      this.missedShots.push([y, x]);
+    let index = this.gameboardArr[y][x].shipIndex;
+    let missed = JSON.stringify(this.missedShots);
+    let hits = JSON.stringify(this.hitShots);
+    if (
+      missed.includes([JSON.stringify(y), JSON.stringify(x)]) ||
+      hits.includes([JSON.stringify(y), JSON.stringify(x)])
+    ) {
+      alert("already shot");
     } else {
-      const target = this.aliveShips.filter((ship) => {
-        return ship.name === name;
-      })[0];
-      target.hit([y, x]);
+      if (name == undefined) {
+        this.missedShots.push([y, x]);
+      } else {
+        const target = this.aliveShips.filter((ship) => {
+          return ship.name === name;
+        })[0];
+        target.hit([y, x]);
+        this.hitShots.push([y, x]);
+        console.log(target.health);
+      }
+      this.shipsAlive();
     }
-    this.shipsAlive();
   }
 
   getMissedShots() {
@@ -149,6 +163,13 @@ class Gameboard {
         this.sunkShips.push(ship);
       }
     });
+  };
+
+  lifeInit = () => {
+    this.aliveShips.forEach((ship) => {
+      this.life += ship.health;
+    });
+    return this.life;
   };
 }
 
