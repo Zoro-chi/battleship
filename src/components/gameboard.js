@@ -101,6 +101,7 @@ class Gameboard {
       } else {
         ans = false;
       }
+      this.lifeInit();
       return ans;
     }
   }
@@ -128,27 +129,33 @@ class Gameboard {
 
   receiveAttack(y, x) {
     let name = this.gameboardArr[y][x].shipName;
-    let index = this.gameboardArr[y][x].shipIndex;
     let missed = JSON.stringify(this.missedShots);
     let hits = JSON.stringify(this.hitShots);
+    let ans;
     if (
       missed.includes([JSON.stringify(y), JSON.stringify(x)]) ||
       hits.includes([JSON.stringify(y), JSON.stringify(x)])
     ) {
+      ans = false;
       alert("already shot");
     } else {
       if (name == undefined) {
         this.missedShots.push([y, x]);
+        ans = true;
       } else {
         const target = this.aliveShips.filter((ship) => {
           return ship.name === name;
         })[0];
+        alert("hit");
         target.hit([y, x]);
         this.hitShots.push([y, x]);
-        console.log(target.health);
+        this.life -= 1;
+        ans = true;
+        console.log(this.life);
       }
       this.shipsAlive();
     }
+    return ans;
   }
 
   getMissedShots() {

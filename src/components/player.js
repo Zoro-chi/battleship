@@ -34,10 +34,16 @@ class Player {
   }
 
   attack(y, x, enemy) {
+    let ans;
     if (this.getTurn()) {
-      enemy.board.receiveAttack(y, x);
-      this.endTurn(enemy);
+      if (enemy.board.receiveAttack(y, x)) {
+        this.endTurn(enemy);
+        ans = true;
+      } else {
+        ans = false;
+      }
     }
+    return ans;
   }
 }
 

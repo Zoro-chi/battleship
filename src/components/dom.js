@@ -63,24 +63,31 @@ const domOps = () => {
     });
   });
 
-  // ADDING EVENT LISTENER TO GAMEBOARDS
-  document.querySelectorAll(".player").forEach((cell) => {
-    cell.addEventListener("click", () => {
-      const y = cell.getAttribute("data-y");
-      const x = cell.getAttribute("data-x");
-      console.log(y, x);
-      enemy.attack(y, x, player);
-      console.log(player.board.missedShots);
-    });
-  });
+  // ADDING EVENT LISTENER TO GAMEBOARD
 
   document.querySelectorAll(".enemy").forEach((cell) => {
     cell.addEventListener("click", () => {
       const y = cell.getAttribute("data-y");
       const x = cell.getAttribute("data-x");
-      console.log(y, x);
-      player.attack(y, x, enemy);
-      console.log(enemy.board.missedShots);
+
+      if (player.attack(y, x, enemy)) {
+        cell.setAttribute("id", "shot");
+        console.log(enemy.board.missedShots);
+      } else {
+        return;
+      }
+
+      const { aiY, aiX } = enemy.aiAttack(player);
+      console.log(player.board.missedShots);
+      console.log(aiY, aiX);
+
+      document.querySelectorAll(".player").forEach((cell) => {
+        const y = cell.getAttribute("data-y");
+        const x = cell.getAttribute("data-x");
+        if (y == aiY && x == aiX) {
+          cell.setAttribute("id", "shot");
+        }
+      });
     });
   });
 };
