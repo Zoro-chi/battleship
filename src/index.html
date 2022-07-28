@@ -14,15 +14,28 @@
       </div>
     </header>
     <section id="main">
+      <div id="modal">
+        <h3 class="game-over-modal">Game Over</h3>
+        <h2 class="winnig-player"></h2>
+        <button type="button">Play again</button>
+      </div>
       <div class="board-container">
-        <h2>Player Board</h2>
-        <div class="battle-info"></div>
+        <h2 class="player-board-container">Player Board</h2>
+        <div class="battle-info">
+          <h3 class="lives">
+            ❤️ Lives left: <span class="player-lives-left"> </span>
+          </h3>
+        </div>
         <div class="player-board"></div>
       </div>
       <div class="seperator"></div>
       <div class="board-container">
-        <h2>Enemy Board</h2>
-        <div class="battle-info"></div>
+        <h2 class="enemy-board-container">Enemy Board</h2>
+        <div class="battle-info">
+          <h3 class="lives">
+            ❤️ Lives left: <span class="enemy-lives-left"> </span>
+          </h3>
+        </div>
         <div class="enemy-board"></div>
       </div>
     </section>

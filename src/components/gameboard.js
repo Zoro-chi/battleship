@@ -24,11 +24,12 @@ class Gameboard {
     this.missedShots = [];
     this.hitShots = [];
     this.gameboardArr = this.createGameboard();
-    this.allShips = [destroyer, submarine, patrolboat];
-    this.aiShips = [destroyer1, submarine1, patrolboat1];
+    this.allShips = [carrier, battleship, destroyer, submarine, patrolboat];
+    this.aiShips = [carrier1, battleship1, destroyer1, submarine1, patrolboat1];
     this.aliveShips = [];
     this.sunkShips = [];
     this.life = 0;
+    this.gameover = false;
   }
 
   createGameboard() {
@@ -43,9 +44,11 @@ class Gameboard {
     }
     return array;
   }
+
   getGameboard() {
     return this.gameboardArr;
   }
+
   validPlacement(y, x, length, direction) {
     if (direction == "v") {
       if (x > 10 || x < 0 || y > 10 || y < 0 || y + length > 10) {
@@ -72,6 +75,7 @@ class Gameboard {
       }
     }
   }
+
   placeShip(y, x, ship, direction) {
     let ans;
     if (direction == "v") {
@@ -88,6 +92,7 @@ class Gameboard {
       }
       return ans;
     }
+
     if (direction == "h") {
       let ans;
       if (this.validPlacement(y, x, ship.getLength(), direction)) {
@@ -101,9 +106,9 @@ class Gameboard {
       } else {
         ans = false;
       }
-      this.lifeInit();
       return ans;
     }
+    this.lifeInit();
   }
 
   generateVars = () => {
@@ -146,12 +151,14 @@ class Gameboard {
         const target = this.aliveShips.filter((ship) => {
           return ship.name === name;
         })[0];
-        alert("hit");
+
         target.hit([y, x]);
         this.hitShots.push([y, x]);
         this.life -= 1;
+        this.checkGameover();
         ans = true;
         console.log(this.life);
+        // console.log(this.gameover);
       }
       this.shipsAlive();
     }
@@ -178,6 +185,15 @@ class Gameboard {
     });
     return this.life;
   };
+
+  checkGameover = () => {
+    if (this.life <= 0) {
+      this.gameover = true;
+      this.endGame();
+    }
+  };
+
+  endGame = () => {};
 }
 
 export default Gameboard;

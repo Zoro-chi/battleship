@@ -84,8 +84,6 @@ describe("Gameboard tests", () => {
     gameboard3.allShips.forEach((ship) => {
       gameboard3.randomPlaceShip(ship);
     });
-    gameboard3.lifeInit();
-    console.log(gameboard3.life);
 
     expect(gameboard3.aliveShips.length).toBe(5);
   });

@@ -13,6 +13,12 @@ const initGame = () => {
   player.board.allShips.forEach((ship) => player.board.randomPlaceShip(ship));
   enemy.board.aiShips.forEach((ship) => enemy.board.randomPlaceShip(ship));
 
+  // INIT LIVES
+  player.board.lifeInit();
+  enemy.board.lifeInit();
+
+  // CHECK FOR GAMEOVER
+
   return {
     player,
     enemy,

@@ -4,6 +4,10 @@ import Player from "./player.js";
 const domOps = () => {
   const playerBoard = document.querySelector(".player-board");
   const enemyBoard = document.querySelector(".enemy-board");
+  const modal = document.querySelector("#modal");
+  const winner = document.querySelector(".winning-player");
+  let playerLivesLeft = document.querySelector(".player-lives-left");
+  let enemyLivesLeft = document.querySelector(".enemy-lives-left");
 
   const { player, enemy } = initGame();
 
@@ -41,7 +45,8 @@ const domOps = () => {
           pos.getAttribute("data-y") == y &&
           pos.getAttribute("data-x") == x
         ) {
-          pos.style.backgroundColor = "red";
+          // pos.style.backgroundColor = "red";
+          pos.classList.add("player-ship-cell");
         }
       });
     });
@@ -57,14 +62,19 @@ const domOps = () => {
           pos.getAttribute("data-y") == y &&
           pos.getAttribute("data-x") == x
         ) {
-          pos.style.backgroundColor = "blue";
+          // pos.style.backgroundColor = "blue";
+          pos.classList.add("enemy-ship-cell");
         }
       });
     });
   });
 
-  // ADDING EVENT LISTENER TO GAMEBOARD
+  // console.log(player.board.life);
+  // console.log(enemy.board.life);
+  playerLivesLeft.textContent = player.board.life;
+  enemyLivesLeft.textContent = enemy.board.life;
 
+  // DISPLAYING ATTACKS
   document.querySelectorAll(".enemy").forEach((cell) => {
     cell.addEventListener("click", () => {
       const y = cell.getAttribute("data-y");
@@ -72,20 +82,27 @@ const domOps = () => {
 
       if (player.attack(y, x, enemy)) {
         cell.setAttribute("id", "shot");
-        console.log(enemy.board.missedShots);
+        enemyLivesLeft.textContent = enemy.board.life;
+        if (enemy.board.gameover) {
+          modal.style.display = "flex";
+        }
+        // console.log(enemy.board.missedShots);
       } else {
         return;
       }
 
       const { aiY, aiX } = enemy.aiAttack(player);
-      console.log(player.board.missedShots);
-      console.log(aiY, aiX);
+      // console.log(player.board.missedShots);
 
       document.querySelectorAll(".player").forEach((cell) => {
         const y = cell.getAttribute("data-y");
         const x = cell.getAttribute("data-x");
         if (y == aiY && x == aiX) {
           cell.setAttribute("id", "shot");
+          playerLivesLeft.textContent = player.board.life;
+          if (player.board.gameover) {
+            modal.style.display = "flex";
+          }
         }
       });
     });
