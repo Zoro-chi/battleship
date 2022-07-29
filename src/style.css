@@ -24,7 +24,7 @@ body {
   font-size: 3rem;
   color: powderblue;
 }
-#main {
+#boards {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -98,14 +98,56 @@ body {
   background-color: firebrick;
   pointer-events: none;
 }
-#modal {
+#gameover-modal {
   display: none;
   z-index: 99;
-  background-color: rgba(95, 112, 160, 0.8);
+  background-color: cadetblue;
   position: fixed;
-  height: 400px;
-  width: 90vw;
-  left: 5vw;
+  height: 40vh;
+  width: 50vw;
+  left: 25vw;
   flex-flow: column;
   justify-content: space-around;
+  align-items: center;
+  top: 25vh;
+  border-radius: 10px;
+}
+.game-over-modal {
+  color: red;
+  font-size: 1.8rem;
+}
+#start-modal {
+  display: flex;
+  z-index: 99;
+  background-color: cadetblue;
+  position: fixed;
+  height: 40vh;
+  width: 50vw;
+  left: 25vw;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: center;
+  top: 25vh;
+  border-radius: 10px;
+}
+input {
+  outline: transparent;
+  padding: 0.3rem;
+  text-align: center;
+  font-family: "Cinzel";
+  font-weight: 700;
+  font-size: 1rem;
+}
+button {
+  padding: 0.5rem;
+  border-radius: 10px;
+  width: 8rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+button:active {
+  transform: translateY(2px);
+}
+#footer {
+  width: 100vw;
 }

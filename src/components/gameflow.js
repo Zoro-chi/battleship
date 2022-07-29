@@ -5,7 +5,7 @@ import Ai from "./ai.js";
 
 const initGame = () => {
   // INIT PLAYERS AND BOARDS
-  const player = new Player("Kilo");
+  const player = new Player("");
   // const enemy = new Player("Lima");
   const enemy = new Ai();
 
@@ -16,8 +16,6 @@ const initGame = () => {
   // INIT LIVES
   player.board.lifeInit();
   enemy.board.lifeInit();
-
-  // CHECK FOR GAMEOVER
 
   return {
     player,

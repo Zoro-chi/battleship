@@ -158,7 +158,6 @@ class Gameboard {
         this.checkGameover();
         ans = true;
         console.log(this.life);
-        // console.log(this.gameover);
       }
       this.shipsAlive();
     }
@@ -189,11 +188,8 @@ class Gameboard {
   checkGameover = () => {
     if (this.life <= 0) {
       this.gameover = true;
-      this.endGame();
     }
   };
-
-  endGame = () => {};
 }
 
 export default Gameboard;

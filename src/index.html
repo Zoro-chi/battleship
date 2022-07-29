@@ -14,31 +14,44 @@
       </div>
     </header>
     <section id="main">
-      <div id="modal">
+      <div id="start-modal">
+        <h3>Enter Player Name:</h3>
+        <input
+          type="text"
+          placeholder="Player Name"
+          required
+          id="player-name"
+        />
+        <button type="button" class="start-game">Start Game</button>
+      </div>
+      <div id="gameover-modal">
         <h3 class="game-over-modal">Game Over</h3>
-        <h2 class="winnig-player"></h2>
+        <h2 class="winner"></h2>
         <button type="button">Play again</button>
       </div>
-      <div class="board-container">
-        <h2 class="player-board-container">Player Board</h2>
-        <div class="battle-info">
-          <h3 class="lives">
-            ❤️ Lives left: <span class="player-lives-left"> </span>
-          </h3>
+      <div id="boards">
+        <div class="board-container">
+          <h2 class="player-board-container">Player Board</h2>
+          <div class="battle-info">
+            <h3 class="lives">
+              ❤️ Lives left: <span class="player-lives-left"> </span>
+            </h3>
+          </div>
+          <div class="player-board"></div>
         </div>
-        <div class="player-board"></div>
-      </div>
-      <div class="seperator"></div>
-      <div class="board-container">
-        <h2 class="enemy-board-container">Enemy Board</h2>
-        <div class="battle-info">
-          <h3 class="lives">
-            ❤️ Lives left: <span class="enemy-lives-left"> </span>
-          </h3>
+        <div class="seperator"></div>
+        <div class="board-container">
+          <h2 class="enemy-board-container">Enemy Board</h2>
+          <div class="battle-info">
+            <h3 class="lives">
+              ❤️ Lives left: <span class="enemy-lives-left"> </span>
+            </h3>
+          </div>
+          <div class="enemy-board"></div>
         </div>
-        <div class="enemy-board"></div>
       </div>
     </section>
+    <footer id="footer"></footer>
     <script src="../dist/main.js"></script>
   </body>
 </html>

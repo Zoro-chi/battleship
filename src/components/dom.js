@@ -4,12 +4,24 @@ import Player from "./player.js";
 const domOps = () => {
   const playerBoard = document.querySelector(".player-board");
   const enemyBoard = document.querySelector(".enemy-board");
-  const modal = document.querySelector("#modal");
-  const winner = document.querySelector(".winning-player");
+  const gameoverModal = document.querySelector("#gameover-modal");
+  const startModal = document.querySelector("#start-modal");
+  const startGame = document.querySelector(".start-game");
+  const winner = document.querySelector(".winner");
   let playerLivesLeft = document.querySelector(".player-lives-left");
   let enemyLivesLeft = document.querySelector(".enemy-lives-left");
+  const boardsContainer = document.querySelector("#boards");
+  const playerBoardName = document.querySelector(".player-board-container");
+  const playerName = document.querySelector("#player-name");
 
   const { player, enemy } = initGame();
+  player.setName(playerName.value);
+
+  startGame.addEventListener("click", () => {
+    player.setName(playerName.value);
+    playerBoardName.innerHTML = player.getName();
+    startModal.style.display = "none";
+  });
 
   // CREATING CELLS FOR BOTH GAMEBOARDS
   player.board.getGameboard().forEach((posY, i) => {
@@ -45,7 +57,6 @@ const domOps = () => {
           pos.getAttribute("data-y") == y &&
           pos.getAttribute("data-x") == x
         ) {
-          // pos.style.backgroundColor = "red";
           pos.classList.add("player-ship-cell");
         }
       });
@@ -62,15 +73,12 @@ const domOps = () => {
           pos.getAttribute("data-y") == y &&
           pos.getAttribute("data-x") == x
         ) {
-          // pos.style.backgroundColor = "blue";
           pos.classList.add("enemy-ship-cell");
         }
       });
     });
   });
 
-  // console.log(player.board.life);
-  // console.log(enemy.board.life);
   playerLivesLeft.textContent = player.board.life;
   enemyLivesLeft.textContent = enemy.board.life;
 
@@ -84,26 +92,31 @@ const domOps = () => {
         cell.setAttribute("id", "shot");
         enemyLivesLeft.textContent = enemy.board.life;
         if (enemy.board.gameover) {
-          modal.style.display = "flex";
+          winner.textContent = `The winner is player`;
+          gameoverModal.style.display = "flex";
+          boardsContainer.style.opacity = "0.5";
         }
         // console.log(enemy.board.missedShots);
       } else {
         return;
       }
 
-      const { aiY, aiX } = enemy.aiAttack(player);
-      // console.log(player.board.missedShots);
+      enemy.aiAttack(player);
 
       document.querySelectorAll(".player").forEach((cell) => {
         const y = cell.getAttribute("data-y");
         const x = cell.getAttribute("data-x");
-        if (y == aiY && x == aiX) {
-          cell.setAttribute("id", "shot");
-          playerLivesLeft.textContent = player.board.life;
-          if (player.board.gameover) {
-            modal.style.display = "flex";
+        enemy.allShots.forEach((shot) => {
+          if (y == shot.y && x == shot.x) {
+            cell.setAttribute("id", "shot");
+            playerLivesLeft.textContent = player.board.life;
+            if (player.board.gameover) {
+              winner.textContent = `The winner is enemy`;
+              gameoverModal.style.display = "flex";
+              boardsContainer.style.opacity = "0.5";
+            }
           }
-        }
+        });
       });
     });
   });
