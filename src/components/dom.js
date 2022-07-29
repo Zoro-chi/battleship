@@ -1,5 +1,4 @@
 import initGame from "./gameflow.js";
-import Player from "./player.js";
 
 const domOps = () => {
   const playerBoard = document.querySelector(".player-board");
@@ -13,6 +12,8 @@ const domOps = () => {
   const boardsContainer = document.querySelector("#boards");
   const playerBoardName = document.querySelector(".player-board-container");
   const playerName = document.querySelector("#player-name");
+  const boards = document.querySelector("#boards");
+  const replay = document.querySelector(".play-again");
 
   const { player, enemy } = initGame();
   player.setName(playerName.value);
@@ -20,6 +21,7 @@ const domOps = () => {
   startGame.addEventListener("click", () => {
     player.setName(playerName.value);
     playerBoardName.innerHTML = player.getName();
+    boards.style.pointerEvents = "all";
     startModal.style.display = "none";
   });
 
@@ -92,7 +94,7 @@ const domOps = () => {
         cell.setAttribute("id", "shot");
         enemyLivesLeft.textContent = enemy.board.life;
         if (enemy.board.gameover) {
-          winner.textContent = `The winner is player`;
+          winner.textContent = `The winner is: ${player.getName()}`;
           gameoverModal.style.display = "flex";
           boardsContainer.style.opacity = "0.5";
         }
@@ -111,7 +113,7 @@ const domOps = () => {
             cell.setAttribute("id", "shot");
             playerLivesLeft.textContent = player.board.life;
             if (player.board.gameover) {
-              winner.textContent = `The winner is enemy`;
+              winner.textContent = `The winner is: ${enemy.getName()}`;
               gameoverModal.style.display = "flex";
               boardsContainer.style.opacity = "0.5";
             }
@@ -119,6 +121,10 @@ const domOps = () => {
         });
       });
     });
+  });
+
+  replay.addEventListener("click", () => {
+    location.reload();
   });
 };
 

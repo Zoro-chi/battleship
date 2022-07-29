@@ -9,7 +9,7 @@ describe("Player tests", () => {
   });
 
   test("New player creation (Turn)", () => {
-    expect(golf.getTurn()).toBe(false);
+    expect(golf.getTurn()).toBe(true);
   });
 
   test("Start player turn", () => {

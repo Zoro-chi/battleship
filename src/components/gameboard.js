@@ -142,7 +142,7 @@ class Gameboard {
       hits.includes([JSON.stringify(y), JSON.stringify(x)])
     ) {
       ans = false;
-      alert("already shot");
+      // alert("already shot");
     } else {
       if (name == undefined) {
         this.missedShots.push([y, x]);
@@ -157,7 +157,6 @@ class Gameboard {
         this.life -= 1;
         this.checkGameover();
         ans = true;
-        console.log(this.life);
       }
       this.shipsAlive();
     }

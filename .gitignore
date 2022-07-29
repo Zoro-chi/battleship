@@ -2,4 +2,3 @@ node_modules
 
 tests/gameflow.test.js
 
-tests/ai.test.js

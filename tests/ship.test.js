@@ -31,7 +31,10 @@ describe("Ship tests", () => {
   test("Ship hit", () => {
     shipA.hit([0, 1]);
     shipA.hit([0, 2]);
-    expect(shipA.hits).toEqual([[0, 1]]);
+    expect(shipA.hits).toEqual([
+      [0, 1],
+      [0, 2],
+    ]);
   });
 
   test("Sunk", () => {

@@ -28,7 +28,8 @@ body {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  height: 75vh;
+  height: 80vh;
+  pointer-events: none;
 }
 .board-container {
   width: 48vw;
@@ -87,9 +88,9 @@ body {
 .player-ship-cell {
   background-color: orangered;
 }
-.enemy-ship-cell {
+/* .enemy-ship-cell {
   background-color: fuchsia;
-}
+} */
 #shot {
   background-image: url("./icon-50.png");
   background-size: contain;
@@ -150,4 +151,12 @@ button:active {
 }
 #footer {
   width: 100vw;
+  height: 10vh;
+  background-color: dodgerblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#footer h1 {
+  transform: scale(1, -1);
 }
