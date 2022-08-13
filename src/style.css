@@ -61,7 +61,7 @@ body {
   height: 87%;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 0);
+  grid-template-rows: repeat(10, 1fr);
 }
 .player-board-container {
   background-color: orangered;
